@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Electoral</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg,rgb(203, 99, 238) 0%,rgb(184, 0, 246) 50%, #f80000 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        }
+        .input-error {
+            border-color: #ef4444;
+        }
+        .shake {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .btn-yellow {
+            background-color: #FCD116;
+            color: #003893;
+        }
+        .btn-yellow:hover {
+            background-color: #e6b800;
+        }
+        .btn-blue {
+            background-color: #003893;
+            color: white;
+        }
+        .btn-blue:hover {
+            background-color: #002672;
+        }
+        .btn-red {
+            background-color: #CE1126;
+            color: white;
+        }
+        .btn-red:hover {
+            background-color: #a80d1e;
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white rounded-xl overflow-hidden card-shadow">
+        <!-- Header con bandera colombiana -->
+        <div class="bg-gradient-to-r from-yellow-400 via-blue-600 to-red-600 text-white p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-white">Registro Electoral</h1>
+                    <p class="text-white opacity-90">Complete sus datos para el registro</p>
+                </div>
+                <div class="bg-white rounded-full p-3 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-full bg-yellow-400 border-2 border-blue-600 flex items-center justify-center">
+                        <i class="fas fa-vote-yea text-blue-600 text-lg"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Form -->
+        <div class="p-6">
+            <form id="registroForm" class="space-y-4">
+                <!-- Nombre y Apellido -->
+                <div>
+                    <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre y Apellido</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-blue-600"></i>
+                        </div>
+                        <input type="text" id="nombre" name="nombre" 
+                            class="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200" 
+                            placeholder="Ej: Juan Pérez" required>
+                    </div>
+                    <p id="error-nombre" class="mt-1 text-sm text-red-600 hidden"></p>
+                </div>
+                
+                <!-- Cédula -->
+                <div>
+                    <label for="cedula" class="block text-sm font-medium text-gray-700 mb-1">Cédula</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-id-card text-blue-600"></i>
+                        </div>
+                        <input type="text" id="cedula" name="cedula" 
+                            class="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200" 
+                            placeholder="Ej: 12345678" required>
+                    </div>
+                    <p id="error-cedula" class="mt-1 text-sm text-red-600 hidden"></p>
+                </div>
+                
+                <!-- Teléfono -->
+                <div>
+                    <label for="telefono" class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-phone text-blue-600"></i>
+                        </div>
+                        <input type="tel" id="telefono" name="telefono" 
+                            class="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200" 
+                            placeholder="Ej: 04121234567" required>
+                    </div>
+                    <p id="error-telefono" class="mt-1 text-sm text-red-600 hidden"></p>
+                </div>
+                
+                <!-- Dirección -->
+                <div>
+                    <label for="direccion" class="block text-sm font-medium text-gray-700 mb-1">Dirección</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-map-marker-alt text-blue-600"></i>
+                        </div>
+                        <input type="text" id="direccion" name="direccion" 
+                            class="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200" 
+                            placeholder="Ej: Av. Principal, Casa #123" required>
+                    </div>
+                    <p id="error-direccion" class="mt-1 text-sm text-red-600 hidden"></p>
+                </div>
+                
+                <!-- Centro Electoral -->
+                <div>
+                    <label for="centro" class="block text-sm font-medium text-gray-700 mb-1">Centro Electoral</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-landmark text-blue-600"></i>
+                        </div>
+                        <select id="centro" name="centro" 
+                            class="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200" required>
+                            <option value="" disabled selected>Seleccione un centro</option>
+                            <option value="Felix María Paredes"> Felix María Paredes</option>
+                            <option value="Alberto Carnavalli"> Alberto Carnavalli</option>
+                            <option value="Rómulo Gallegos"> Rómulo Gallegos</option>
+                            <option value="Año Bicentenario"> Año Bicentenario</option>
+                            <option value="Liceo San Mateo"> Liceo San Mateo</option>
+                            <option value="Nuestra Señora de Belén"> Nuestra Señora de Belén</option>
+                            <option value="Simónsito Comunitario"> Simónsito Comunitario</option>
+                            <option value="Antonio Ricaurte"> Antonio Ricaurte</option>
+                            <option value="Medina Angarita"> Medina Angarita</option>
+                            <option value="Sagrada Familia"> Sagrada Familia</option>
+                            <option value="Ezequiel Zamora"> Ezequiel Zamora</option>
+                            <option value="Preescolar 25 de Marzo"> Preescolar 25 de Marzo</option>
+                            <option value="Leonides Albarán"> Leonides Albarán</option>
+                            <option value="Carmelina Bejarano"> Carmelina Bejarano</option>
+                            <option value="Daniel Mendoza"> Daniel Mendoza</option>
+                            <option value="Rural La Curia"> Rural La Curia</option>
+                            <option value="María Alvarado"> María Alvarado</option>
+                            <option value="Arte y Oficio"> Arte y Oficio</option>
+                            <option value="Curia Simón Rodríguez"> Curia Simón Rodríguez</option>
+                        </select>
+                    </div>
+                    <p id="error-centro" class="mt-1 text-sm text-red-600 hidden"></p>
+                </div>
+                
+                <!-- Botones -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-4">
+                    <button type="submit" 
+                        class="flex-1 btn-blue font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center justify-center">
+                        <i class="fas fa-save mr-2"></i> Guardar Registro
+                    </button>
+                    <button type="button" id="limpiarBtn" 
+                        class="flex-1 btn-yellow font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center justify-center">
+                        <i class="fas fa-broom mr-2"></i> Limpiar
+                    </button>
+                    <button type="button" id="verRegistrosBtn" 
+                        class="flex-1 btn-red font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center justify-center">
+                        <i class="fas fa-list mr-2"></i> Ver Registros
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal de éxito -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-xl p-6 max-w-sm w-full mx-4">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                    <i class="fas fa-check text-green-600 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mt-3">Registro exitoso!</h3>
+                <div class="mt-2 text-sm text-gray-500">
+                    <p>Los datos han sido registrados correctamente.</p>
+                </div>
+                <div class="mt-4">
+                    <button id="cerrarModal" type="button" class="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
+                        Aceptar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de error (cedula duplicada) -->
+    <div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-xl p-6 max-w-sm w-full mx-4">
+            <div class="text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                    <i class="fas fa-exclamation text-red-600 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mt-3">Error en el registro</h3>
+                <div class="mt-2 text-sm text-gray-500">
+                    <p id="errorModalMessage">La cédula ingresada ya está registrada.</p>
+                </div>
+                <div class="mt-4">
+                    <button id="cerrarErrorModal" type="button" class="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
+                        Aceptar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tabla de registros -->
+    <div id="registrosContainer" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-xl p-6 max-w-4xl w-full mx-4 max-h-[80vh] overflow-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Registros Guardados</h2>
+                <button id="cerrarTabla" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Barra de búsqueda -->
+            <div class="mb-6 relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-gray-400"></i>
+                </div>
+                <input type="text" id="busquedaInput" 
+                    class="pl-10 w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200" 
+                    placeholder="Buscar por nombre, cédula o centro electoral">
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <button id="limpiarBusqueda" class="text-gray-400 hover:text-gray-600 hidden">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cédula</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Centro Electoral</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registrosBody" class="bg-white divide-y divide-gray-200">
+                        <!-- Los registros se insertarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button id="nuevoRegistro" class="btn-blue font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center">
+                    <i class="fas fa-plus mr-2"></i> Nuevo Registro
+                </button>
+            </div>
+        </div>
+    </div>
+
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elementos del DOM
+        const registroForm = document.getElementById('registroForm');
+        const limpiarBtn = document.getElementById('limpiarBtn');
+        const verRegistrosBtn = document.getElementById('verRegistrosBtn');
+        const successModal = document.getElementById('successModal');
+        const cerrarModal = document.getElementById('cerrarModal');
+        const errorModal = document.getElementById('errorModal');
+        const cerrarErrorModal = document.getElementById('cerrarErrorModal');
+        const errorModalMessage = document.getElementById('errorModalMessage');
+        const registrosContainer = document.getElementById('registrosContainer');
+        const cerrarTabla = document.getElementById('cerrarTabla');
+        const nuevoRegistro = document.getElementById('nuevoRegistro');
+        const registrosBody = document.getElementById('registrosBody');
+        const busquedaInput = document.getElementById('busquedaInput');
+        const limpiarBusqueda = document.getElementById('limpiarBusqueda');
+
+        // Event Listeners
+        registroForm.addEventListener('submit', handleSubmit);
+        limpiarBtn.addEventListener('click', limpiarFormulario);
+        verRegistrosBtn.addEventListener('click', cargarRegistros);
+        cerrarModal.addEventListener('click', () => successModal.classList.add('hidden'));
+        cerrarErrorModal.addEventListener('click', () => errorModal.classList.add('hidden'));
+        cerrarTabla.addEventListener('click', () => registrosContainer.classList.add('hidden'));
+        nuevoRegistro.addEventListener('click', () => {
+            registrosContainer.classList.add('hidden');
+            registroForm.reset();
+        });
+        busquedaInput.addEventListener('input', buscarRegistros);
+
+        // Función para manejar el envío del formulario
+        async function handleSubmit(e) {
+            e.preventDefault();
+            
+            // Validar formulario
+            if (!validarFormulario()) return;
+            
+            // Obtener datos del formulario
+            const formData = {
+                nombre: document.getElementById('nombre').value.trim(),
+                cedula: document.getElementById('cedula').value.trim(),
+                telefono: document.getElementById('telefono').value.trim(),
+                direccion: document.getElementById('direccion').value.trim(),
+                centro: document.getElementById('centro').value
+            };
+            
+            try {
+                const response = await fetch('includes/guardar_registro.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    successModal.classList.remove('hidden');
+                    limpiarFormulario();
+                } else {
+                    mostrarErrorModal(data.message || 'Error al guardar el registro');
+                    if (data.field) {
+                        showError(data.field, data.message);
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarErrorModal('Error de conexión con el servidor');
+            }
+        }
+
+        // Función para validar el formulario
+        function validarFormulario() {
+            let isValid = true;
+            resetErrors();
+            
+            // Validar nombre
+            const nombre = document.getElementById('nombre').value.trim();
+            if (nombre === '') {
+                showError('nombre', 'El nombre es requerido');
+                isValid = false;
+            } else if (nombre.length < 3) {
+                showError('nombre', 'El nombre debe tener al menos 3 caracteres');
+                isValid = false;
+            }
+            
+            // Validar cédula
+            const cedula = document.getElementById('cedula').value.trim();
+            if (cedula === '') {
+                showError('cedula', 'La cédula es requerida');
+                isValid = false;
+            } else if (!/^\d+$/.test(cedula)) {
+                showError('cedula', 'La cédula debe contener solo números');
+                isValid = false;
+            } else if (cedula.length < 6) {
+                showError('cedula', 'La cédula debe tener al menos 6 dígitos');
+                isValid = false;
+            }
+            
+            // Validar teléfono
+            const telefono = document.getElementById('telefono').value.trim();
+            if (telefono === '') {
+                showError('telefono', 'El teléfono es requerido');
+                isValid = false;
+            } else if (!/^\d+$/.test(telefono)) {
+                showError('telefono', 'El teléfono debe contener solo números');
+                isValid = false;
+            } else if (telefono.length < 10) {
+                showError('telefono', 'El teléfono debe tener al menos 10 dígitos');
+                isValid = false;
+            }
+            
+            // Validar dirección
+            const direccion = document.getElementById('direccion').value.trim();
+            if (direccion === '') {
+                showError('direccion', 'La dirección es requerida');
+                isValid = false;
+            } else if (direccion.length < 10) {
+                showError('direccion', 'La dirección debe tener al menos 10 caracteres');
+                isValid = false;
+            }
+            
+            // Validar centro electoral
+            const centro = document.getElementById('centro').value;
+            if (centro === '' || centro === null) {
+                showError('centro', 'Debe seleccionar un centro electoral');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                registroForm.classList.add('shake');
+                setTimeout(() => {
+                    registroForm.classList.remove('shake');
+                }, 500);
+            }
+            
+            return isValid;
+        }
+
+        // Función para cargar registros desde la base de datos
+        async function cargarRegistros() {
+            try {
+                const response = await fetch('includes/obtener_registros.php');
+                const registros = await response.json();
+                mostrarRegistros(registros);
+                registrosContainer.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarErrorModal('Error al cargar los registros');
+            }
+        }
+
+        // Función para buscar registros
+        async function buscarRegistros() {
+            const termino = busquedaInput.value.trim();
+            
+            if (termino) {
+                limpiarBusqueda.classList.remove('hidden');
+            } else {
+                limpiarBusqueda.classList.add('hidden');
+            }
+            
+            try {
+                const response = await fetch(`includes/obtener_registros.php?search=${encodeURIComponent(termino)}`);
+                const registros = await response.json();
+                mostrarRegistros(registros);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Función para mostrar registros en la tabla
+        function mostrarRegistros(registros) {
+            registrosBody.innerHTML = '';
+            
+            if (!registros || registros.length === 0) {
+                registrosBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-center text-gray-500">No se encontraron registros</td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            registros.forEach(registro => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${registro.nombre_completo}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${registro.cedula}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${registro.telefono}</td>
+                    <td class="px-6 py-4">${registro.centro_electoral}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button onclick="verDetalle(${registro.id})" class="text-blue-600 hover:text-blue-900 mr-3">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button onclick="editarRegistro(${registro.id})" class="text-yellow-500 hover:text-yellow-700 mr-3">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="eliminarRegistro(${registro.id})" class="text-red-600 hover:text-red-900">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                registrosBody.appendChild(row);
+            });
+        }
+
+        // Función para limpiar el formulario
+        function limpiarFormulario() {
+            registroForm.reset();
+            resetErrors();
+        }
+
+        // Función para mostrar errores en los campos
+        function showError(field, message) {
+            const input = document.getElementById(field);
+            const errorElement = document.getElementById(`error-${field}`);
+            
+            input.classList.add('input-error');
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+        }
+
+        // Función para resetear errores
+        function resetErrors() {
+            document.querySelectorAll('[id^="error-"]').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            document.querySelectorAll('input, select').forEach(el => {
+                el.classList.remove('input-error');
+            });
+        }
+
+        // Función para mostrar modal de error
+        function mostrarErrorModal(mensaje) {
+            errorModalMessage.textContent = mensaje;
+            errorModal.classList.remove('hidden');
+        }
+
+        // Funciones globales para acciones
+        window.verDetalle = async function(id) {
+            try {
+                const response = await fetch(`includes/obtener_registro.php?id=${id}`);
+                const registro = await response.json();
+                
+                if (registro) {
+                    alert(`Detalle del registro:\n\nNombre: ${registro.nombre_completo}\nCédula: ${registro.cedula}\nTeléfono: ${registro.telefono}\nDirección: ${registro.direccion}\nCentro Electoral: ${registro.centro_electoral}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarErrorModal('Error al cargar el registro');
+            }
+        };
+
+        window.editarRegistro = async function(id) {
+            try {
+                const response = await fetch(`includes/obtener_registro.php?id=${id}`);
+                const registro = await response.json();
+                
+                if (registro) {
+                    document.getElementById('nombre').value = registro.nombre_completo;
+                    document.getElementById('cedula').value = registro.cedula;
+                    document.getElementById('telefono').value = registro.telefono;
+                    document.getElementById('direccion').value = registro.direccion;
+                    document.getElementById('centro').value = registro.centro_electoral;
+                    
+                    // Opcional: Eliminar el registro actual si quieres reemplazarlo
+                    registrosContainer.classList.add('hidden');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarErrorModal('Error al cargar el registro para editar');
+            }
+        };
+
+        window.eliminarRegistro = async function(id) {
+            if (!confirm('¿Está seguro de eliminar este registro?')) return;
+            
+            try {
+                const response = await fetch(`includes/eliminar_registro.php?id=${id}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    cargarRegistros(); // Recargar la lista
+                } else {
+                    mostrarErrorModal(data.message || 'Error al eliminar el registro');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarErrorModal('Error de conexión al eliminar');
+            }
+        };
+    });
+</script>
+</body>
+</html>
